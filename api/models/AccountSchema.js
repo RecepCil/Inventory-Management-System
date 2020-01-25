@@ -26,7 +26,10 @@ const Account = database.define(
             type: Sequelize.STRING
         },
         company_id: {
-            type: Sequelize.STRING
+            type: Sequelize.NUMBER
+        },
+        role_id:{
+            type: Sequelize.NUMBER
         }
     },
     {

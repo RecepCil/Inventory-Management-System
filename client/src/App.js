@@ -4,6 +4,7 @@ import './App.css';
 import LoginForm from './Components/LoginForm';
 import Welcome from './Components/Welcome';
 import ListElement from './Components/ListElement';
+import ProductForm from './Components/ProductForm';
 
 export default class App extends React.Component {
 
@@ -35,7 +36,8 @@ export default class App extends React.Component {
             this.setState({
               user: {
                 username: result.data[0].username,
-                password: result.data[0].password
+                password: result.data[0].password,
+                role_id: result.data[0].role_id
               },
               errorMessage: null
             })
@@ -60,20 +62,22 @@ export default class App extends React.Component {
           <a> {this.state.errorMessage} </a>
         }
         {
-
           (this.state.user) ?
+
             <div>
               <Welcome user={this.state.user} onSignOut={this.signOut.bind(this)} />
               <div>
                 <ul>
-                  <ListElement />
+                  { ( this.state.user.role_id == 0 ) ?
+                   <ProductForm /> : <ListElement />
+                  }
                 </ul>
               </div>
             </div>
-
-            :
-
-            <LoginForm onSignIn={this.signIn.bind(this)} />
+          
+          :
+          
+          <LoginForm onSignIn={this.signIn.bind(this)} />
         }
       </div>
     )
